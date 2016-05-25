@@ -1,0 +1,124 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE-edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" type="text/css" href="http://jsxgraph.uni-bayreuth.de/distrib/jsxgraph.css" />
+
+    <script type="text/x-mathjax-config">
+  		MathJax.Hub.Config({
+  			tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']]},
+  			CommonHTML: { linebreaks: { automatic: true } },
+  			"HTML-CSS": { linebreaks: { automatic: true } }
+  		});
+	</script>
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jsxgraph/0.99.4/jsxgraphcore.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/mathjs/3.2.1/math.min.js"></script>
+	<title>Interpolación Polinomial (Método de Lagrange)</title>
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<h2>Interpolación Polinomial (Método de Lagrange) </h2>
+		</div>
+		<form method="post" action="">	
+		</form>
+		<div class="row">
+				<div class="col-lg-5">
+					<h3>Nodos</h3>{% csrf_token %}
+						{% if s != '' %}
+						{{ s }}
+						{% endif %}
+					<button id="add_node" class="btn btn-primary" role="button">Agregar Nodo</button>
+					<button id="rem_node" class="btn btn-primary" role="button">Borrar Nodo</button>
+					<input id="num_nodes" type="hidden" value="0"></input>
+					<div id="nodes_container" class="container">
+						<div class="row clearfix">
+							<div class="col-md-4 column">
+								<table class="table table-bordered table-hover" id="tab_logic">
+									<thead>
+											<tr >
+												<th class="text-center">
+													#
+												</th>
+												<th class="text-center">
+																X
+												</th>
+												<th class="text-center">
+																Y
+												</th>
+												
+											</tr>
+									</thead>
+									<tbody>
+									       <tr id='node_0'></tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6" id="graph_container">
+					<h3>Gráfica</h3>
+					<div id="box" class="jxgbox" style="width: 500px; height: 500px;"></div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-4">
+					<p>
+						<button id="Compute" class="btn btn-primary" href="#" role="button">Calcular</button>
+					</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-5">
+					<h3>Ecuación Interpoladora</h3>
+					
+					<div id="equ_result" style="font-size:150%"></div>
+
+				</div>
+
+				<div class="col-lg-5">
+					<h3>Evaluar</h3>
+					<form class="form-inline">
+						<div class="form-group col-xs-4">
+						    	<div class="input-group">
+						    	  <div class="input-group-addon">x</div>
+						    	  <input type="text" class="form-control" id="x_value" placeholder="0.0">
+						    	</div>
+						    	 <div class="input-group">
+						    	  <div class="input-group-addon">y</div>
+						    	  <input type="text" class="form-control" id="y_value" placeholder="Resultado">
+						    	</div>
+						</div>
+						<button class="btn btn-default">Evaluar</button>
+					</form>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-5">
+					<h3>Paso a Paso (Productoria)</h3>
+					<p>
+						<div id="step-step" style="font-size: 150%" ></div>
+					</p>				
+				</div>
+				<div class="col-lg-5">
+					<h3>Paso a Paso (Sumatoria)</h3>
+					<p>
+						<div id="step-step_1" style="font-size: 150%" ></div>
+					</p>				
+				</div>
+			</div>
+	</div>
+
+
+<!-- Jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="{% static 'PolinomialMan.js' %}"></script>
+</body>
+</html>
